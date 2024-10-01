@@ -17,6 +17,7 @@
                 {% for book in books %}
                     <li><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></li>
                     <li><a href="{% url 'update_existing_book' book.pk%}">Update Existing Book</a></li>
+                   
                 {% endfor %}
                 <li><a href="{% url 'create_new_book' %}">Create Book</a></li>
                 

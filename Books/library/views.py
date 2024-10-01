@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404,redirect
+from django.views.decorators.csrf import csrf_exempt
 from .models import Book
 from django.http import JsonResponse
 from .forms import BookForm
+import json
 
 
 def home(request):
@@ -43,3 +45,21 @@ def update_existing_book(request, pk):
         form = BookForm(instance=book)  
 
     return render(request, 'update_existing_book.html', {'form': form})
+
+@csrf_exempt  
+def patch_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == 'PATCH':
+        try:
+            data = json.loads(request.body)  
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        form = BookForm(data, instance=book)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
