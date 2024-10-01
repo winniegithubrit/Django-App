@@ -63,3 +63,11 @@ def patch_book(request, pk):
             return JsonResponse({'errors': form.errors}, status=400)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+# delete a book
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        book.delete()
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
