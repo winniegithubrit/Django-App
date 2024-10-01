@@ -1,0 +1,35 @@
+{%extends 'home.html'%}
+
+{% block title %}{{book.title}}{%endblock%}
+
+{%block content%}
+    <h1>{{ book.title }}</h1>
+    <p><strong>Author:</strong> {{ book.author.name }}</p>
+    <p><strong>Publisher:</strong> {{ book.publisher.name }}</p>
+    <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p><strong>Summary:</strong> {{ book.summary }}</p>
+
+    {% if book.cover_image %}
+    <img src="{{ book.cover_image.url }}" alt="{{ book.title }} cover image">
+    {% endif %}
+
+    <h2>Genres</h2>
+    <ul>
+        {% for genre in book.genres.all %}
+        <li>{{ genre.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Reviews</h2>
+    <ul>
+        {% for review in book.reviews.all %}
+        <li>
+            <strong>{{ review.reviewer_name }}</strong> rated {{ review.rating }}/5
+            <p>{{ review.comment }}</p>
+        </li>
+        {% empty %}
+        <li>No reviews yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

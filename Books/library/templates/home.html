@@ -1,12 +1,31 @@
+{%load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>{% block title %}My Book Library{% endblock %}</title>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}">   {% endcomment %}
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <h1>My name is winnie jomo</h1>
+    <header>
+        <nav>
+            <ul>
+                {% comment %} <li><a href="{% url 'home' %}">Home</a></li> {% endcomment %}
+                <li><a href="{% url 'book_list' %}">Books</a></li>
+                {% for book in books %}
+                    <li><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+   
 </body>
 </html>

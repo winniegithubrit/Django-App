@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book List</title>
-</head>
-<body>
+
+{% extends 'home.html' %}
+
+{%load static %}
+
+{% block title %}Book List{% endblock %}
+
+{%block content%}
+
     <h1>Book List</h1>
     <ul>
         {% for book in books %}
@@ -20,6 +21,5 @@
         </li>
         {% endfor %}
     </ul>
-    
-</body>
-</html>
+    {%endblock%}
+
