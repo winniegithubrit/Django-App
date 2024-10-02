@@ -1,35 +1,45 @@
-{%extends 'home.html'%}
+{% extends 'home.html' %}
 
-{% block title %}{{book.title}}{%endblock%}
+{% block title %}{{ book.title }}{% endblock %}
 
-{%block content%}
-    <h1>{{ book.title }}</h1>
-    <p><strong>Author:</strong> {{ book.author.name }}</p>
-    <p><strong>Publisher:</strong> {{ book.publisher.name }}</p>
-    <p><strong>Published Date:</strong> {{ book.published_date }}</p>
-    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-    <p><strong>Summary:</strong> {{ book.summary }}</p>
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            {% if book.cover_image %}
+            <img src="{{ book.cover_image.url }}" class="img-fluid" alt="{{ book.title }} cover image">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h1 class="display-4">{{ book.title }}</h1>
+            <p><strong>Author:</strong> {{ book.author.name }}</p>
+            <p><strong>Publisher:</strong> {{ book.publisher.name }}</p>
+            <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+            <p><strong>Summary:</strong> {{ book.summary }}</p>
+            <p><strong>Genres:</strong> 
+                {% for genre in book.genres.all %}
+                <span class="badge badge-secondary">{{ genre.name }}</span>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
 
-    {% if book.cover_image %}
-    <img src="{{ book.cover_image.url }}" alt="{{ book.title }} cover image">
-    {% endif %}
-
-    <h2>Genres</h2>
-    <ul>
-        {% for genre in book.genres.all %}
-        <li>{{ genre.name }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Reviews</h2>
-    <ul>
-        {% for review in book.reviews.all %}
-        <li>
-            <strong>{{ review.reviewer_name }}</strong> rated {{ review.rating }}/5
-            <p>{{ review.comment }}</p>
-        </li>
-        {% empty %}
-        <li>No reviews yet.</li>
-        {% endfor %}
-    </ul>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2>Reviews</h2>
+            <ul class="list-group">
+                {% for review in book.reviews.all %}
+                <li class="list-group-item">
+                    <strong>{{ review.reviewer_name }}</strong> rated 
+                    <span class="badge badge-info">{{ review.rating }}/5</span>
+                    <p>{{ review.comment }}</p>
+                </li>
+                {% empty %}
+                <li class="list-group-item">No reviews yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
