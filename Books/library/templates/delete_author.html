@@ -1,0 +1,9 @@
+{%extends 'home.html'%}
+{% block content%}
+<h1>Delete Author</h1>
+<form method="post" action="{% url 'delete_author' pk=author.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+</form>
+<a href="{% url 'author_list' %}">Cancel</a>
+{% endblock%}

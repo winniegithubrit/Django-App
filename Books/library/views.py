@@ -98,3 +98,10 @@ def create_author(request):
         form = AuthorForm()
 
     return render(request, 'create_author.html', {'form': form})
+
+def delete_author(request, pk):
+    author = get_object_or_404(Author, pk=pk)
+    if request.method == 'POST':
+        author.delete()
+        return redirect('author_list')
+    return render(request,'delete_author.html', {'author': author})
