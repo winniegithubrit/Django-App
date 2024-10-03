@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from django.views.decorators.csrf import csrf_exempt
-from .models import Book
+from .models import Book,Author
 from django.http import JsonResponse
-from .forms import BookForm
+from .forms import BookForm,AuthorForm
 import json
 
 
@@ -75,3 +75,10 @@ def delete_book(request, pk):
         return redirect('book_list')  
 
     return render(request, 'delete_book.html', {'book': book})
+
+# VIEWS FOR AUTHORS
+def get_authors(request, id):
+    author = get_object_or_404(Author, id=id)
+    return render(request, 'get_authors.html', {'author': author})
+
+

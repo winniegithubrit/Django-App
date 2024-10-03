@@ -14,7 +14,10 @@
 
                 <div class="card-body">
                     <h5 class="card-title">{{ book.title }}</h5>
-                    <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
+                    <p class="card-text"><strong>Author: 
+                        <a href="{% url 'get_authors' book.author.id %}">{{ book.author }}</a>
+                    </strong></p>
+                    
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'book_detail' book.pk %}" class="btn btn-custom">View Details</a>

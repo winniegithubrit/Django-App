@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}Author Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Author Details</h1>
+    
+    <!-- Bootstrap Grid Layout -->
+    <div class="row">
+        <!-- Image Column -->
+        <div class="col-md-4">
+            {% if author.profile_picture %}
+                <img src="{{ author.profile_picture.url }}" class="img-fluid rounded" alt="{{ author.name }}'s Profile Picture">
+            {% else %}
+                <img src="{% static 'images/default_profile.png' %}" class="img-fluid rounded" alt="Default Profile Picture">
+            {% endif %}
+        </div>
+        
+       
+        <div class="col-md-8">
+            <h2>{{ author.name }}</h2>
+            <p><strong>Bio:</strong></p>
+            <p>{{ author.bio }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
