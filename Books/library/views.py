@@ -64,8 +64,7 @@ def patch_book(request, pk):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-from django.shortcuts import get_object_or_404, redirect, render
-from .models import Book  # Make sure to import your Book model
+
 
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
