@@ -93,7 +93,8 @@ def create_author(request):
         form = AuthorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('author_list')
-        else:
-            form = BookForm()
-            return render(request, 'create_author.html', {'form':form})
+            return redirect('author_list')  
+    else:
+        form = AuthorForm()
+
+    return render(request, 'create_author.html', {'form': form})
