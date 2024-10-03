@@ -77,8 +77,23 @@ def delete_book(request, pk):
     return render(request, 'delete_book.html', {'book': book})
 
 # VIEWS FOR AUTHORS
+
+def author_list(request):
+    authors = Author.objects.all()
+    return render(request, 'author_list.html', {'authors': authors})
+
+
 def get_authors(request, id):
     author = get_object_or_404(Author, id=id)
     return render(request, 'get_authors.html', {'author': author})
 
 
+def create_author(request):
+    if request.method == 'POST':
+        form = AuthorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('author_list')
+        else:
+            form = BookForm()
+            return render(request, 'create_author.html', {'form':form})
